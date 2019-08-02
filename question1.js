@@ -1,7 +1,8 @@
 console.log('hello');
 //text="key1=value1;key2=value2\nkeyA=valueA\n..."
 
-function store(aArr) {
+module.exports.store = (aArr) => {
+  if (!aArr || !aArr.length) return '';
   return aArr
     .map(r => {
       let rT = [];
@@ -10,10 +11,10 @@ function store(aArr) {
       }
       return rT.join(';');
     })
-    .join('\n');
+    .join('\n').concat('\n');
 }
 
-function load(text) {
+module.exports.load = (text) => {
   let textArr = text.split('\n');
 
   if (!textArr || !textArr.length) return;
@@ -34,28 +35,3 @@ function load(text) {
 
   return textMapArr;
 }
-
-var runLoad = () => {
-  console.log('----start load----');
-  const text = 'key1=value1;key2=value2\nkeyA=valueA\n';
-
-  const a = load(text);
-
-  console.log(a);
-  console.log(a[0]['key1']);
-  console.log(a[0]['key2']);
-  console.log(a[1]['keyA']);
-  console.log('----end load----');
-};
-
-var runStore = () => {
-  console.log('----start load----');
-  const a = [{ key1: 'value1', key2: 'value2' }, { keyA: 'valueA' }];
-
-  const text = store(a);
-  console.log(text);
-  console.log('----end load----');
-};
-
-runLoad();
-runStore();
