@@ -123,10 +123,12 @@ describe('question 3', function () {
         }]
       };
 
+      /// 1000 % 10 = 0 => (1000 - (1000%10)) / 100 * 5 = 50
+
       BillDiscount.constructor(bill);
       const amount = BillDiscount.getDiscountPerMoney();
 
-      expect(amount).to.equal(0);
+      expect(amount).to.equal(50);
     });
 
     it('only discount per percentage with grocery 1', () => {

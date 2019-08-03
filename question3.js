@@ -7,48 +7,49 @@
 
 // fix currency
 
-module.exports.BillDiscount = (function () {
 
+const PERCENTAGE_UNIT = 'percentage';
+const MONEY_UNIT = 'money';
+const GROCERY_TYPE = 'grocery';
+
+const DiscountSettings = [
+  {
+    type: 'employee',
+    unit: PERCENTAGE_UNIT,
+    value: 30
+  },
+  {
+    type: 'affiliate',
+    unit: PERCENTAGE_UNIT,
+    value: 10
+  },
+  {
+    type: 'customer > 2 yr',
+    unit: PERCENTAGE_UNIT,
+    value: 5
+  },
+  {
+    type: 'perMoney',
+    unit: MONEY_UNIT,
+    value: [100, 5]
+  }
+];
+
+module.exports.BillDiscount = (function() {
   function constructor(bill) {
     this.bill = Object.assign({}, bill);
   }
-
-  const PERCENTAGE_UNIT = 'percentage';
-  const MONEY_UNIT = 'money';
-  const GROCERY_TYPE = 'grocery';
-
-  const discountSettings = Object.freeze([{
-      type: 'employee',
-      unit: PERCENTAGE_UNIT,
-      value: 30
-    },
-    {
-      type: 'affiliate',
-      unit: PERCENTAGE_UNIT,
-      value: 10
-    },
-    {
-      type: 'customer > 2 yr',
-      unit: PERCENTAGE_UNIT,
-      value: 5
-    },
-    {
-      type: 'perMoney',
-      unit: MONEY_UNIT,
-      value: [100, 5]
-    }
-  ]);
+  
+  const discountSettings = Object.freeze(DiscountSettings);
 
   function getDiscountWithPercentage() {
-    const {
-      amount,
-      items,
-      userType
-    } = this.bill;
+    const { amount, items, userType } = this.bill;
 
     let realAmount = amount;
 
-    const groceryAmount = items.filter(i => i.type === GROCERY_TYPE).reduce((a, c) => a += c.value, 0);
+    const groceryAmount = items
+      .filter(i => i.type === GROCERY_TYPE)
+      .reduce((a, c) => (a += c.value), 0);
     if (groceryAmount == amount) return 0;
 
     if (groceryAmount) realAmount = realAmount - groceryAmount;
@@ -63,14 +64,12 @@ module.exports.BillDiscount = (function () {
       .map(i => i.value)
       .reduce((a, b) => Math.max(a, b));
 
-    const discountValue = realAmount / 100 * valueDiscounts;
+    const discountValue = (realAmount / 100) * valueDiscounts;
     return discountValue;
   }
 
   function getDiscountPerMoney() {
-    const {
-      amount
-    } = this.bill;
+    const { amount } = this.bill;
 
     const discountMoney = discountSettings.find(i => i.unit === MONEY_UNIT);
     const discount = discountMoney.value;
@@ -78,7 +77,7 @@ module.exports.BillDiscount = (function () {
     if (amount < discount[0]) return 0;
 
     const amountWillDiscount = amount - (amount % discount[0]);
-    const discountValue = amountWillDiscount / discount[0] * discount[1];
+    const discountValue = (amountWillDiscount / discount[0]) * discount[1];
     return discountValue;
   }
 
@@ -87,15 +86,13 @@ module.exports.BillDiscount = (function () {
   }
 
   function getBillAftterDiscount() {
-    const {
-      amount
-    } = this.bill;
+    const { amount } = this.bill;
 
     let amountDiscount = this.getDiscount();
     return amount - amountDiscount;
   }
 
-  function getBill(){
+  function getBill() {
     return this.bill;
   }
 
@@ -106,5 +103,5 @@ module.exports.BillDiscount = (function () {
     getBillAftterDiscount,
     getDiscountPerMoney,
     getDiscountWithPercentage
-  }
-})()
+  };
+})();
