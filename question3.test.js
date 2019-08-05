@@ -21,8 +21,8 @@ describe('question 3', function () {
       /// 990 / 100 * 30 = 297
       /// 990 -> 45
       /// 297 + 45
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscount();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscount();
 
       expect(amount).to.equal(342);
     });
@@ -38,8 +38,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscount();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscount();
 
       expect(amount).to.equal(45);
     });
@@ -55,8 +55,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getBillAftterDiscount();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getBillAftterDiscount();
 
       expect(amount).to.equal(945);
     });
@@ -72,8 +72,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getBillAftterDiscount();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getBillAftterDiscount();
 
       expect(amount).to.equal(950);
     });
@@ -89,8 +89,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscountWithPercentage();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscountWithPercentage();
 
       expect(amount).to.equal(0);
     });
@@ -106,8 +106,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscountWithPercentage();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscountWithPercentage();
 
       expect(amount).to.equal(300);
     });
@@ -125,8 +125,8 @@ describe('question 3', function () {
 
       /// 1000 % 10 = 0 => (1000 - (1000%10)) / 100 * 5 = 50
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscountPerMoney();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscountPerMoney();
 
       expect(amount).to.equal(50);
     });
@@ -158,8 +158,8 @@ describe('question 3', function () {
         ]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscountWithPercentage();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscountWithPercentage();
 
       expect(amount).to.equal(291);
     });
@@ -175,8 +175,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getDiscountWithPercentage();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getDiscountWithPercentage();
 
       expect(amount).to.equal(0);
     });
@@ -192,8 +192,8 @@ describe('question 3', function () {
         }]
       };
 
-      BillDiscount.constructor(bill);
-      const amount = BillDiscount.getBillAftterDiscount();
+      const billDiscount = new BillDiscount(bill);
+      const amount = billDiscount.getBillAftterDiscount();
 
       expect(amount).to.equal(950);
     });

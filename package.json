@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha index.test.js",
+    "test": "mocha index.test.js -s 0",
     "start": "nodemon index.js"
   },
   "author": "",

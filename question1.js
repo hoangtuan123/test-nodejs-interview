@@ -1,37 +1,33 @@
-console.log('hello');
 //text="key1=value1;key2=value2\nkeyA=valueA\n..."
 
-module.exports.store = (aArr) => {
+module.exports.store = aArr => {
   if (!aArr || !aArr.length) return '';
   return aArr
     .map(r => {
-      let rT = [];
-      for (const c in r) {
-        rT.push(c + '=' + r[c]);
-      }
-      return rT.join(';');
+      return Object.keys(r)
+        .map(n => n.concat('=', r[n]))
+        .join(';');
     })
-    .join('\n').concat('\n');
-}
+    .join('\n')
+    .concat('\n');
+};
 
-module.exports.load = (text) => {
+module.exports.load = text => {
   let textArr = text.split('\n');
+  if (!textArr || !textArr.length) return '';
 
-  if (!textArr || !textArr.length) return;
-
-  textArr = textArr.filter(i => i);
-
-  textMapArr = textArr.map((t, i) => {
-    const rowSplit = t.split(';');
-
-    let rowArr = {};
-    for (let col of rowSplit) {
-      const objSplit = col.split('=');
-      rowArr[objSplit[0]] = objSplit[1];
-    }
-
-    return rowArr;
-  });
-
-  return textMapArr;
-}
+  return (
+    textArr
+      .filter(i => i)
+      .map((t, i) => {
+        return t
+          .split(';')
+          .filter(e => e)
+          .map(e => e.split('='))
+          .reduce((p, c) => {
+            p[c[0]] = c[1];
+            return p;
+          }, {});
+      })
+  );
+};
