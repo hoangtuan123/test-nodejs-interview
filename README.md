@@ -18,8 +18,18 @@ $ npm start
 ```
 
 ## Run test for question 3
-
+Run normal test
 ```bash
 # unit tests
 $ npm run test
+```
+Run test coverage report with file is output
+```bash
+# report
+$ npm run test-cover-report-file
+```
+Run test coverage report with cmd is output
+```bash
+# report
+$ npm run test-cover-report-cmd
 ```
